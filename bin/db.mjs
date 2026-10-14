@@ -23,6 +23,12 @@ const rest = args.filter((a) => !a.startsWith('--'));
 const MIGRATIONS = [
   // 1: the first schema, created by schema.sql itself
   () => {},
+  // 2: jobs.cv (which CV a job gets) and trust.coached (their own words first)
+  (db) => {
+    const has = (table, col) => db.prepare(`SELECT 1 FROM pragma_table_info('${table}') WHERE name = ?`).get(col);
+    if (!has('jobs', 'cv')) db.exec('ALTER TABLE jobs ADD COLUMN cv TEXT');
+    if (!has('trust', 'coached')) db.exec('ALTER TABLE trust ADD COLUMN coached INTEGER NOT NULL DEFAULT 0');
+  },
 ];
 
 function init() {
@@ -37,6 +43,8 @@ function init() {
   const fresh = !fs.existsSync(DB_PATH);
   if (fresh) fs.writeFileSync(DB_PATH, '');
   const db = openDb();
+  // Views hold no data: drop them so schema.sql recreates them as they are now.
+  for (const { name } of db.prepare("SELECT name FROM sqlite_master WHERE type = 'view'").all()) db.exec(`DROP VIEW "${name}"`);
   db.exec(fs.readFileSync(SCHEMA, 'utf8'));
   let version = db.prepare('PRAGMA user_version').get().user_version;
   for (; version < MIGRATIONS.length; version++) {

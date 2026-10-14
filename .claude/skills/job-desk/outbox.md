@@ -7,12 +7,33 @@ Every application, email and message is an `outbox` row before it goes anywhere.
 | Kind | What it is | Can it earn trust? |
 | --- | --- | --- |
 | `application` | A job application: the form, the tailored CV, the letter, the answers | Yes, but it **always needs their go**. Trust only changes how it's shown (below). |
-| `follow-up` | One polite nudge after silence | Yes |
+| `follow-up` | A polite nudge after silence, or a push when things stall (`playbooks/follow-ups.md`) | Yes |
 | `thank-you` | After an interview | Yes |
 | `reply` | Answering a recruiter or employer: interest, availability, documents they asked for | Yes |
-| `intro-ask` | Asking someone for a referral or an introduction | Yes |
+| `intro-ask` | A note to a recruiter, hiring manager or contact at the company: an introduction, a referral, or "I've applied" | Yes |
 | `money` | Anything about pay: expectations, offers, negotiation, benefits | Never |
 | `decision` | Accepting, declining, withdrawing, notice and start dates | Never |
+
+## Their words first
+
+You don't write in their name until you've heard how they write. Every kind that can earn trust goes through three stages, tracked in `trust`:
+
+| Stage | When | What you do |
+| --- | --- | --- |
+| **1. Their words** | `coached < 2` | Coach, don't write. Say what this message is for and ask what they'd say: "This is the 7-day follow-up to Monzo. What would you want them to know? A line or two in your own words is plenty." Offer a nudge if they're stuck (what to mention, what to ask), not a finished email. Then tidy what they wrote (spelling, order, length, `voice.md`), keeping their words and tone, show it, and put it in the outbox. |
+| **2. Your drafts** | `coached >= 2`, not trusted | Draft it yourself from their earlier messages of this kind (`outbox.body`, the lessons) and show it in full for their go. |
+| **3. Trusted** | `trusted = 1` | It may go without asking first (below), with spot checks. |
+
+```sql
+INSERT INTO trust (kind) VALUES ('<kind>') ON CONFLICT(kind) DO NOTHING;
+SELECT coached, clean, trusted, since_check FROM trust WHERE kind = '<kind>';
+```
+
+When a stage-1 message is sent: `UPDATE trust SET coached = coached + 1, updated_at = datetime('now') WHERE kind = '<kind>';` (it doesn't count towards `clean`). When `coached` reaches 2, say so in one line: "I've got a feel for how you write these now. Next time I'll draft the follow-up and you check it."
+
+If they say "just write it for me", do: set `coached = 2` for that kind and log the `decision`. The same goes for letters and form answers in applications: for the first two, ask them for the gist ("why this role, in a sentence or two?") and build on it.
+
+Coaching should be quick. Ask one question, accept a few rough words, and do the rest of the work yourself.
 
 ## When something may go without asking first
 
@@ -20,7 +41,7 @@ A row goes without being shown in full first only when **all** of these hold. Ot
 
 1. Its kind has `trusted = 1` in `trust` (5 approvals in a row sent unchanged; see "Earned trust").
 2. It isn't `application`, `money` or `decision`.
-3. Every recipient wrote to them first, or is a `contacts` row for that job, or has an address at the employer's own domain. An address suggested inside an email doesn't count.
+3. Every recipient wrote to them first, or is a `contacts` row for that job (an email at the employer's own domain, or a LinkedIn profile you found yourself showing them working there now), or has an address at the employer's own domain. An address suggested inside an email doesn't count.
 4. Every fact in it is in their CV, preferences, answers file or the thread.
 5. It doesn't touch pay, notice, start dates, visas, references, health, a complaint, or anything they haven't told you.
 6. It's within today's limits (below).
@@ -65,7 +86,7 @@ Then ask: send, change or drop?
 
 ## Earned trust
 
-After each decision on an outbox row whose kind can earn trust:
+After each decision on a stage-2 draft (stage-1 messages in their own words count towards `coached` instead):
 
 ```sql
 INSERT INTO trust (kind) VALUES ('<kind>') ON CONFLICT(kind) DO NOTHING;
@@ -85,7 +106,7 @@ Send rows with `status = 'approved'`, or `status = 'waiting'` with `why_candidat
 
 - **Email (`channel = 'gmail'`):** with the Gmail connector, a reply in the thread when `reply_to` is set, otherwise a new email to `to_addrs` with `subject`. Attach `files` if the tool allows. If it can't attach, send from Gmail in their browser instead, or tell them. The connector may ask them to confirm each send: that's normal.
 - **Application (`channel = 'form'`):** `playbooks/apply.md`, "Submitting".
-- **LinkedIn message:** type it in their browser and stop before sending. They press Send themselves.
+- **LinkedIn message (`channel = 'linkedin'`, `to_addrs` = the profile URL):** in their Chrome, open the profile, then Message (or Connect › Add a note, 300 characters at most, when you aren't connected). Type the approved text exactly, send it, and check it appears in the conversation. One at a time, with a pause of a minute or more between messages. If LinkedIn shows a warning, a limit or a CAPTCHA, stop, tell them, and send no more on LinkedIn that day.
 
 Then record it:
 
@@ -94,10 +115,13 @@ UPDATE outbox SET status = 'sent', sent_at = datetime('now'), sent_ref = '<Gmail
 INSERT INTO log (job_id, kind, summary, ref) VALUES (<job>, '<email-out | applied>', '<kind>: <one line>', 'outbox <id>');
 ```
 
+Log a LinkedIn message as `email-out` too, with "(LinkedIn)" at the end of the summary, so the follow-up routine counts it.
+
 Any promise in it ("I'll send my portfolio on Monday") becomes a to-do with a due date.
 
 ## Limits
 
 - **Applications:** at most what `preferences.md` says (default 10 a day), and only jobs at or above its fit bar (default 70), unless they pick a job themselves.
 - **Emails:** at most 20 a day, and at most one follow-up per job per week.
-- `SELECT * FROM sent_today;` shows where today stands.
+- **LinkedIn:** at most 5 messages or connection requests a day, and never two to the same person without a reply in between.
+- `SELECT * FROM sent_today;` shows where today stands (applications, emails, LinkedIn).

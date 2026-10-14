@@ -29,6 +29,8 @@ The **master CV** is `data/profile/cv.json`: everything true about their career.
    ```
    Fix whatever the report flags (pages over `maxPages`, a mostly empty last page, anything wider than the page), then show the PDF, or the PNGs if you can't read PDFs. Say in two or three lines what you changed and why.
 
+**No CV at all:** build the master from a conversation. Ask about one job at a time, most recent first: the title, the employer and what it does, the dates, and two or three things they did or changed there (with numbers if they have them). Then education, languages and the tools they use. Ten minutes of chat is enough for a first version; render it and improve it together.
+
 When they tell you something new about their career, add it to the master and re-render.
 
 ## Tailoring for a job

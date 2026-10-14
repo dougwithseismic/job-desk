@@ -1,6 +1,6 @@
 # How it sounds
 
-Everything you write in their name sounds like a capable person writing quickly and well, not like an AI and not like a cover-letter template. Use their CV's language (British or American English, per `preferences.md`).
+Everything you write in their name starts from how they write: for the first two of each kind, their own words, tidied (`outbox.md`, "Their words first"); after that, drafts modelled on what they approved. It sounds like a capable person writing quickly and well, not like an AI and not like a cover-letter template. Use their CV's language (British or American English, per `preferences.md`).
 
 ## Emails and messages
 

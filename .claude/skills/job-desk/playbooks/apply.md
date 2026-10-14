@@ -7,8 +7,8 @@ For each job they pick (stage `shortlisted`):
 1. **Folder:** `data/jobs/<id>-<company>-<role>/` (lowercase, hyphens). Set `jobs.folder`, `stage = 'preparing'`.
 2. **The posting:** save its text to `posting.md` in the folder (it may come down later).
 3. **Where they apply:** open the posting in their browser and find the application form (`apply_url`). Note what it asks for: CV, letter, questions, and whether it needs an account. Don't submit anything.
-4. **The CV:** tailor it (`cv` skill, "Tailoring") into `<folder>/cv.json` and render `cv.pdf`.
-5. **A letter**, if the form takes one or the posting asks for one (`../voice.md`): `<folder>/letter.md`, rendered with `node bin/cv.mjs letter <folder>/letter.md --cv <folder>/cv.json`.
+4. **The CV,** as `jobs.cv` says (`triage.md`, "Which CV"): `master` copies `data/profile/cv.pdf` into the folder as `cv.pdf`; `tailor` and `rework` make `<folder>/cv.json` (`cv` skill, "Tailoring") and render `cv.pdf`.
+5. **A letter**, only if the form requires one or the posting asks for one (`../voice.md`; for their first two, start from their own words, `../outbox.md`, "Their words first"): `<folder>/letter.md`, rendered with `node bin/cv.mjs letter <folder>/letter.md --cv <folder>/cv.json`.
 6. **Form answers:** every question on the form, with its answer, in `<folder>/answers.md`. Answers come only from `data/profile/answers.md`, their CV and preferences. A question with no answer there gets `ASK` and goes in `why_candidate`. Diversity questions are "Prefer not to say" unless `answers.md` says otherwise.
 7. **The outbox row:**
    ```sql
@@ -31,7 +31,7 @@ Only after their go for this application (`status = 'approved'`).
 4. CAPTCHA: ask them to do it.
 5. Before the final button, check every field against the approved package. Anything new or different (a question you hadn't seen, a changed answer) means stop and show them.
 6. Submit, then read the confirmation. Save its text or a screenshot path as `sent_ref`.
-7. Record it (`../outbox.md`, "Sending"): `log` kind `applied`, `stage = 'applied'`, and a to-do to check for a reply in 7 days.
+7. Record it (`../outbox.md`, "Sending"): `log` kind `applied`, `stage = 'applied'`. The follow-up routine picks it up from there (`follow-ups.md`); for a job they really want, find the person now.
 
 If anything fails (the form errors, the posting closed), set `status = 'failed'` with the reason in `note`, tell them, and set `stage = 'expired'` if the job has gone.
 

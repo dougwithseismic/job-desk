@@ -2,7 +2,15 @@
 
 Instructions for the agent. Go through these with the candidate in order, one step at a time, in plain words. Tell them what each step is for before you do it. Check each one worked before moving on. The whole thing takes about 20 minutes, most of it talking about their CV and what they want.
 
-Open with: "I'm going to set up your job desk. It's a folder on your computer where I keep track of every job, application and email, plus a CV design. Five steps: install, connect Gmail, connect Chrome, your CV, and what you're looking for."
+Open with something short and friendly, and ask for the CV straight away so they can find it while you install:
+
+> Hi! I'm going to be your job-search assistant: I'll find jobs, get your CV ready for each one, help with applications and follow-ups, and keep track of everything so you don't have to.
+>
+> First things first: **where's your CV?** Drag it in here (PDF or Word is fine). No CV, or it's very old? That's fine: paste your LinkedIn link, or we'll build one together in a few minutes.
+>
+> While you find it, I'll set things up. It takes about 20 minutes, mostly talking about what you're looking for.
+
+If they drop the CV in before the desk exists, keep it and save it to `data/profile/originals/` once step 1 has created the folder.
 
 ## 1. Install
 
@@ -48,9 +56,9 @@ What it's for: reading job boards and LinkedIn as them, opening application form
 
 ## 4. Their CV
 
-Ask: "Where's your current CV? Drop the file in here, or tell me where it is. A PDF or Word file is fine, and so is your LinkedIn profile."
+If they haven't given it yet, ask again: "Drag your CV in here, or paste your LinkedIn link. No CV? Tell me about your last job and we'll build one." Ask for their LinkedIn profile link either way and put it in `preferences.md` ("My LinkedIn"): it's what recruiters will look at after a follow-up.
 
-Then follow the `cv` skill, "Intake":
+Then follow the `cv` skill, "Intake" (or "No CV at all"):
 1. Save the original to `data/profile/originals/`.
 2. Read it into `data/profile/cv.json`.
 3. Ask for what's missing or vague: dates, numbers behind achievements, what each company does. Ask a few questions at a time, not twenty.
@@ -65,17 +73,19 @@ Then:
 - Add one or two saved searches to `searches`.
 - Find 5 to 15 companies they'd like to work for. For each, run `node bin/jobs.mjs detect <careers page> --watch "<Name>"` to put it on the watch list.
 - Fill in what you can of `data/profile/answers.md` from the conversation: right to work, sponsorship, notice period, salary expectation. Only use what they actually said.
+- **Agree the plan** (`job-desk/playbooks/plan.md`): suggest how many applications a week, the mix of quick and tailored ones, the follow-up routine and whether to push back when things stall. Write what they choose into "The plan" in `preferences.md`.
 
 ## 6. Show them how to use it
 
 Say this, in your own words, short:
 
 > You're set up. Here's how we'll work:
-> - Say **"find me jobs"** and I'll search, check each job against what you want, and show you the best ones.
-> - Say **"apply to 3"** (or "prepare the top five") and I'll tailor your CV and a letter, fill in the form, and show you everything before it goes.
+> - Say **"find me jobs"** and I'll search, check each job against what you want, and show you the best ones, with whether your main CV works for each or needs tailoring.
+> - Say **"apply to 3"** (or "prepare the top five") and I'll get the CV right, fill in the form, and show you everything before it goes.
+> - I'll follow up on every application on the routine we agreed, find the recruiter or hiring manager on LinkedIn when there's nobody to email, and chase politely when things stall.
 > - Say **"what's waiting?"** any time to see what needs you.
 > - Say **"check my email"** and I'll read replies, log rejections and interviews, and draft answers.
-> - Everything I send in your name, I show you first. Once you've approved five of a kind without changes (follow-ups, say), I'll send those myself, and still show you one now and then.
+> - For the first couple of emails of each kind, I'll ask what you'd say and tidy it up, so they sound like you. Then I'll draft them and you check. Once you've approved five without changes, I'll send those myself, and still show you one now and then. Applications always wait for your go.
 > - Say **"export"** for a spreadsheet of every job and where it stands.
 > - Your data stays in this folder on your computer.
 

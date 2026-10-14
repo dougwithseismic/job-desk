@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS jobs (
     -- expired      the posting closed before we applied
   fit INTEGER,                    -- 0-100, from playbooks/triage.md
   fit_notes TEXT,                 -- what matches, what's missing, why skipped
+  cv TEXT,                        -- master | tailor | rework: which CV this job gets (playbooks/triage.md)
   folder TEXT,                    -- data/jobs/<id>-<slug>, once preparing
   found_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -114,11 +115,14 @@ CREATE TABLE IF NOT EXISTS outbox (
 );
 CREATE INDEX IF NOT EXISTS outbox_status ON outbox(status, id);
 
--- Earned trust, per kind. clean = approvals in a row sent unchanged.
--- trusted flips to 1 at 5 clean; an edit or a rejection resets both to 0.
+-- Earned trust, per kind (outbox.md, "Their words first" and "Earned trust").
+-- coached = messages of this kind sent in the candidate's own words; at 2 the
+-- agent may start drafting. clean = drafts in a row sent unchanged; trusted
+-- flips to 1 at 5 clean; an edit or a rejection resets clean and trusted.
 -- since_check counts trusted sends since the last spot check.
 CREATE TABLE IF NOT EXISTS trust (
   kind TEXT PRIMARY KEY,
+  coached INTEGER NOT NULL DEFAULT 0,
   clean INTEGER NOT NULL DEFAULT 0,
   trusted INTEGER NOT NULL DEFAULT 0,
   since_check INTEGER NOT NULL DEFAULT 0,
@@ -184,6 +188,8 @@ CREATE TABLE IF NOT EXISTS handled (
   at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+-- Views are rebuilt on every init (bin/db.mjs), so changes here reach old desks.
+
 -- Open items waiting on the candidate: outbox rows and their own to-dos.
 CREATE VIEW IF NOT EXISTS needs_candidate AS
   SELECT 'outbox' AS what, o.id, o.kind, j.company, j.title,
@@ -213,7 +219,8 @@ CREATE VIEW IF NOT EXISTS quiet AS
 CREATE VIEW IF NOT EXISTS sent_today AS
   SELECT count(*) AS sent,
          count(*) FILTER (WHERE kind = 'application') AS applications,
-         count(*) FILTER (WHERE channel = 'gmail') AS emails
+         count(*) FILTER (WHERE channel = 'gmail') AS emails,
+         count(*) FILTER (WHERE channel = 'linkedin') AS linkedin
     FROM outbox
    WHERE status = 'sent' AND date(sent_at) = date('now');
 
