@@ -1,0 +1,121 @@
+{
+  "basics": {
+    "name": "Priya Raman",
+    "headline": "Senior product manager, payments and risk",
+    "email": "priya.raman@example.com",
+    "phone": "+44 7700 900417",
+    "location": "London, UK",
+    "links": [
+      {
+        "label": "linkedin.com/in/priya-raman",
+        "url": "https://www.linkedin.com/in/priya-raman"
+      },
+      {
+        "label": "priyaraman.example.com",
+        "url": "https://priyaraman.example.com"
+      }
+    ],
+    "summary": "Product manager with eight years in fintech, most recently running card payments at a Series C issuer. I take messy, regulated problems (chargebacks, fraud rules, failed payments) and turn them into products that cut cost and keep customers. Happiest with a small team and a clear number to move."
+  },
+  "experience": [
+    {
+      "company": "Northwind Pay",
+      "location": "London",
+      "title": "Senior Product Manager, Card Payments",
+      "start": "2022-03",
+      "end": null,
+      "bullets": [
+        "Led a squad of seven through a rebuild of disputes handling; chargeback losses fell **38%** in nine months and the process moved from spreadsheets into the product.",
+        "Launched real-time spend controls used by **61%** of active customers within a quarter, now the most-cited reason in sales win notes.",
+        "Raised authorisation rate from 94.1% to **97.3%** by working with Visa and our processor on retry logic and decline-code handling."
+      ]
+    },
+    {
+      "company": "Lumen Health",
+      "location": "London",
+      "roles": [
+        {
+          "title": "Product Manager, Checkout",
+          "start": "2020-01",
+          "end": "2022-02",
+          "bullets": [
+            "Owned checkout and subscriptions; moved recurring payments to a new provider with zero lost subscribers across 140,000 accounts.",
+            "Cut failed-payment churn by **22%** with smart retries and a card-update flow, worth about £1.1m a year in kept revenue."
+          ]
+        },
+        {
+          "title": "Associate Product Manager",
+          "start": "2018-06",
+          "end": "2019-12",
+          "bullets": [
+            "Shipped NHS login for repeat prescriptions, lifting sign-up completion from 41% to 63%."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Brightline Logistics",
+      "location": "Manchester",
+      "title": "Business Analyst",
+      "start": "2016-09",
+      "end": "2018-05",
+      "bullets": [
+        "Built the first carrier-cost model in SQL and Looker, which found £400k a year in duplicate invoices."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "BSc Economics, First Class",
+      "school": "University of Manchester",
+      "start": "2013",
+      "end": "2016"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Product",
+      "items": [
+        "Discovery",
+        "roadmaps",
+        "pricing",
+        "experiment design",
+        "regulated launches",
+        "SQL",
+        "Amplitude"
+      ]
+    },
+    {
+      "group": "Payments",
+      "items": [
+        "Card issuing",
+        "disputes and chargebacks",
+        "3-D Secure",
+        "authorisation",
+        "PSD2/SCA",
+        "Open Banking"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "level": "native"
+    },
+    {
+      "language": "Tamil",
+      "level": "fluent"
+    },
+    {
+      "language": "Spanish",
+      "level": "conversational (B1)"
+    }
+  ],
+  "meta": {
+    "paper": "A4",
+    "accent": "blue",
+    "density": "normal",
+    "maxPages": 1,
+    "locale": "en-GB"
+  }
+}

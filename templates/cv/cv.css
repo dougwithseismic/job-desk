@@ -1,0 +1,331 @@
+/* The CV and letter design: Swiss editorial, in the language of the Vouchernaut
+   guides. A 3px ink rule opens the page; Sofia Sans for headings, Geist for
+   text, Geist Mono for the small labels; sections are mono kickers over an ink
+   rule, entries are hairline rows with the dates in a left column. Black type
+   on white, one accent, used only for the kickers. */
+
+:root {
+  --head: #0b0c0e;
+  --text: #2a2c33;
+  --soft: #5a5d69;
+  --muted: #8a8d99;
+  --line: #e3e4e8;
+  --accent: #2346d0; /* cobalt */
+
+  --display: "Sofia Sans Variable", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono Variable", ui-monospace, Menlo, monospace;
+
+  --meta: 31mm; /* the left column: dates, places, labels */
+  --gap: 6mm;
+  --body: 9.1pt;
+  --leading: 1.45;
+  --row-pad: 2.6mm;
+  --section-gap: 6mm;
+  --bullet-gap: 0.7mm;
+}
+
+[data-accent="ink"] { --accent: #0b0c0e; }
+[data-accent="plum"] { --accent: #7a2bb8; }
+[data-accent="green"] { --accent: #0d7a55; }
+[data-accent="red"] { --accent: #b42318; }
+
+[data-density="compact"] {
+  --body: 8.8pt;
+  --leading: 1.44;
+  --row-pad: 2.3mm;
+  --section-gap: 5.4mm;
+  --bullet-gap: 0.4mm;
+}
+[data-density="roomy"] {
+  --body: 9.4pt;
+  --leading: 1.56;
+  --row-pad: 3.8mm;
+  --section-gap: 8.5mm;
+  --bullet-gap: 1mm;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 15mm 15mm;
+  @top-left {
+    font-family: "Geist Mono Variable", ui-monospace, monospace;
+    font-size: 6pt;
+    letter-spacing: 0.1em;
+    color: #8a8d99;
+    vertical-align: bottom;
+    padding-bottom: 3mm;
+  }
+  @top-right {
+    font-family: "Geist Mono Variable", ui-monospace, monospace;
+    font-size: 6pt;
+    letter-spacing: 0.1em;
+    color: #8a8d99;
+    vertical-align: bottom;
+    padding-bottom: 3mm;
+  }
+  @bottom-right {
+    font-family: "Geist Mono Variable", ui-monospace, monospace;
+    font-size: 6pt;
+    letter-spacing: 0.1em;
+    color: #8a8d99;
+    vertical-align: top;
+    padding-top: 4mm;
+  }
+}
+/* Page one opens with the masthead; the running head and folio start on page two,
+   so an ATS reads the name first. */
+@page :first {
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-right { content: none; }
+}
+@page us-letter {
+  size: letter;
+  margin: 13mm 15mm 14mm;
+}
+[data-paper="letter"] body { page: us-letter; }
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: var(--body);
+  line-height: var(--leading);
+  letter-spacing: -0.006em;
+  font-kerning: normal;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+p, ul, dl, dd, h1, h2, h3, h4, address { margin: 0; }
+ul { padding: 0; list-style: none; }
+address { font-style: normal; }
+strong { font-weight: 600; color: var(--head); }
+p, li { text-wrap: pretty; }
+
+/* On screen the page shows as a sheet; in print it is the page. */
+@media screen {
+  body { background: #e6e7ea; padding: 12mm 0; }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 14mm 15mm 15mm;
+    background: #fff;
+  }
+  [data-paper="letter"] .page { width: 8.5in; min-height: 11in; }
+}
+
+/* ── Masthead: the 3px rule, the name, the headline; contact set like a letterhead ── */
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10mm;
+  align-items: end;
+  border-top: 2.4pt solid var(--head);
+  padding-top: 4.5mm;
+}
+.name {
+  font-family: var(--display);
+  font-size: 31pt;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--head);
+  text-wrap: balance;
+}
+.headline {
+  margin-top: 2.2mm;
+  font-size: 12pt;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--soft);
+}
+.contact {
+  font-size: 8.2pt;
+  line-height: 1.55;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.summary {
+  margin-top: 4.5mm;
+  max-width: 152mm;
+  font-size: calc(var(--body) + 0.8pt);
+  line-height: 1.55;
+  color: var(--text);
+}
+.summary p + p { margin-top: 1.8mm; }
+
+/* ── Sections: a mono kicker over an ink rule, then hairline rows ── */
+.section { margin-top: var(--section-gap); }
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 2.6mm;
+  margin-bottom: 2.4mm;
+  font-family: var(--mono);
+  font-size: 6.6pt;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  break-after: avoid;
+}
+.kicker::before {
+  content: "";
+  width: 3.7mm;
+  height: 1.5pt;
+  background: currentColor;
+}
+.rows { border-top: 0.9pt solid var(--head); }
+
+/* An entry: dates and place in the left column, everything else beside them. */
+.entry {
+  display: grid;
+  grid-template-columns: var(--meta) 1fr;
+  column-gap: var(--gap);
+  padding: var(--row-pad) 0;
+  border-bottom: 0.5pt solid var(--line);
+  break-inside: avoid;
+}
+.entry-long { break-inside: auto; }
+.entry > * { grid-column: 2; }
+.entry > .when {
+  grid-column: 1;
+  grid-row: 1 / span 12;
+  padding-top: 2.1pt;
+}
+.title {
+  font-family: var(--display);
+  font-size: 11.6pt;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  color: var(--head);
+}
+.org {
+  margin-top: 0.5mm;
+  font-size: 9.2pt;
+  font-weight: 500;
+  color: var(--text);
+}
+.when,
+.role-when,
+.pair-label,
+.letter-date {
+  font-family: var(--mono);
+  font-size: 6.7pt;
+  font-weight: 450;
+  line-height: 1.65;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
+.when span { display: block; }
+.when .where { color: var(--muted); }
+.about {
+  margin-top: 1mm;
+  font-size: calc(var(--body) - 0.2pt);
+  color: var(--soft);
+}
+/* Keep a heading with its first lines, but only when something follows it:
+   on a last child, "avoid" passes up and drags the whole row to the next page. */
+.title:not(:last-child),
+.org:not(:last-child),
+.about:not(:last-child),
+.role-head:not(:last-child) { break-after: avoid; }
+
+.bullets { margin-top: 1.3mm; }
+.bullets li {
+  position: relative;
+  padding-left: 3.4mm;
+}
+.bullets li + li { margin-top: var(--bullet-gap); }
+/* Drawn, not typed: the marker never shows up in an ATS's text. */
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.74em;
+  width: 1.6mm;
+  border-top: 0.8pt solid var(--muted);
+}
+
+/* Several roles at one employer. */
+.role { margin-top: 2.2mm; break-inside: avoid; }
+.role + .role { margin-top: 2.8mm; }
+.role-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 5mm;
+}
+.role-title {
+  font-size: 9.7pt;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--head);
+}
+.role-when { white-space: nowrap; }
+
+/* Label rows (skills) and single rows (languages, short lists). */
+.pair {
+  display: grid;
+  grid-template-columns: var(--meta) 1fr;
+  column-gap: var(--gap);
+  align-items: baseline;
+  padding: calc(var(--row-pad) * 0.62) 0;
+  border-bottom: 0.5pt solid var(--line);
+  break-inside: avoid;
+}
+.pair-inline > * { grid-column: 2; }
+.pair-label { line-height: 1.3; }
+.langs { display: flex; flex-wrap: wrap; gap: 0.8mm 7mm; }
+.lang { font-weight: 500; color: var(--head); }
+.level { color: var(--soft); }
+.plain li + li { margin-top: 0.6mm; }
+
+/* ── The letter: same masthead; the date and addressee in the left column ── */
+.letter { margin-top: 9mm; }
+.letter-grid {
+  display: grid;
+  grid-template-columns: var(--meta) 1fr;
+  column-gap: var(--gap);
+  border-top: 0.9pt solid var(--head);
+  padding-top: 4.2mm;
+}
+.letter-to {
+  margin-top: 2.2mm;
+  font-size: 8.4pt;
+  line-height: 1.5;
+  color: var(--text);
+}
+.letter-body {
+  max-width: 128mm;
+  font-size: 10.3pt;
+  line-height: 1.62;
+  color: var(--text);
+}
+.letter-body p + p { margin-top: 3mm; }
+.letter-body .letter-closing { margin-top: 5.5mm; }
+.letter-body .letter-signature {
+  margin-top: 1mm;
+  font-family: var(--display);
+  font-size: 12.5pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--head);
+}

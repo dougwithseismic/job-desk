@@ -1,0 +1,23 @@
+{
+  "name": "job-desk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A job-hunt desk run by your coding agent: finds jobs, tailors your CV, applies with your OK, and keeps the whole search in one SQLite file.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "setup": "node bin/doctor.mjs --fix",
+    "doctor": "node bin/doctor.mjs",
+    "db": "node bin/db.mjs",
+    "cv": "node bin/cv.mjs",
+    "jobs": "node bin/jobs.mjs",
+    "export": "node bin/db.mjs export"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.11",
+    "playwright-core": "^1.64.0",
+    "unpdf": "^1.8.1"
+  }
+}
