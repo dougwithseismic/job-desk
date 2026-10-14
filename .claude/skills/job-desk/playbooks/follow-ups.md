@@ -1,23 +1,23 @@
 # Follow-ups, people and deadlines
 
-Following up is routine, not an afterthought: most applications that get an answer get it because someone chased. The routine is in "The plan" in `data/profile/preferences.md`; if it's empty, use the default below and tell them.
-
-## The routine (default)
-
-| When | What |
-| --- | --- |
-| On applying, for jobs they really want | Find the person (below) and, if the plan says so, a short `intro-ask`: "I've just applied for X; one line of why". |
-| 7 days quiet | First `follow-up`: the role, when they applied, one line of fit, a light question. |
-| 14 days quiet | Second `follow-up`, shorter, to the same person or a second one. |
-| 30 days quiet | Ask them whether to mark it `rejected` (most companies never write back). |
-| A date they were promised passes | A `follow-up` the next working day asking for an update. |
-| After an interview | A `thank-you` within a day; a `follow-up` if the timeline they gave passes. |
+Following up is part of every session, not an afterthought: most applications that get an answer get it because someone chased. There's no fixed schedule. Each session, look at every open application and judge what it needs now, from its history and the plan ("Follow-ups" in `data/profile/preferences.md`).
 
 ```sql
-SELECT * FROM quiet WHERE (days_quiet >= 7 AND follow_ups = 0) OR (days_quiet >= 14 AND follow_ups = 1);
-SELECT j.id, j.company, j.title, max(l.at) AS applied_at FROM jobs j JOIN log l ON l.job_id = j.id AND l.kind = 'applied'
- WHERE j.stage = 'applied' GROUP BY j.id HAVING julianday('now') - julianday(applied_at) >= 30;
+SELECT * FROM quiet ORDER BY days_quiet DESC;
+SELECT j.id, j.company, j.title, j.stage, j.fit, max(l.at) AS last, group_concat(l.kind || ': ' || l.summary, ' | ') AS history
+  FROM jobs j JOIN log l ON l.job_id = j.id
+ WHERE j.stage IN ('applied', 'interviewing', 'offer') GROUP BY j.id ORDER BY last;
 ```
+
+Things to weigh, for each one:
+
+- **How long it's been quiet,** against how fast this kind of company moves (a week's silence from a startup is a bad sign; from a bank or the public sector it's normal).
+- **What was said last.** A date they were promised that has passed means chase now. A "we'll be in touch next week" means wait for it.
+- **How much they want it** (fit, dream company, the plan). Chase the ones they care about harder and sooner, and find a person to write to.
+- **What's already been sent.** Don't send the same nudge twice in a row; a second chase needs something new (a different person, a new piece of work, a timeline of their own).
+- **When to let go.** A long silence after a couple of chases: ask them whether to mark it `rejected` (most companies never write back).
+
+Then propose what's due ("Monzo's gone quiet since the interview on the 3rd; I'd chase the recruiter today. Wise: nothing for 10 days, I'd find the hiring manager on LinkedIn"), and do what they agree. After an interview, a `thank-you` goes within a day.
 
 Every follow-up is written by `../outbox.md` ("Their words first") and `../voice.md`, and logged with a summary starting "follow-up".
 
@@ -25,7 +25,7 @@ Every follow-up is written by `../outbox.md` ("Their words first") and `../voice
 
 When things stall, push, politely and specifically. Ask one clear question with a date in it:
 
-- After an interview with no word: "Is there anything else you need from me? I'm keen to keep moving, and I'm in other processes, so a rough timeline would help."
+- After an interview with no word: "Is there anything else you need from me? I'm keen to keep moving, so a rough timeline would help." (Mention other processes only if they've told you they have them.)
 - A promised decision date gone by: "You mentioned you'd decide by Friday; is there an update?"
 - Another offer or a deadline on their side (only if they've told you): say so plainly and ask whether the company can move faster.
 - A rejection for a job they really wanted: a two-line reply asking for one piece of feedback, if they'd like.

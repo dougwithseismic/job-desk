@@ -75,14 +75,23 @@ Then:
 - Fill in what you can of `data/profile/answers.md` from the conversation: right to work, sponsorship, notice period, salary expectation. Only use what they actually said.
 - **Agree the plan** (`job-desk/playbooks/plan.md`): suggest how many applications a week, the mix of quick and tailored ones, the follow-up routine and whether to push back when things stall. Write what they choose into "The plan" in `preferences.md`.
 
-## 6. Show them how to use it
+## 6. Permission to act for them
+
+Ask explicitly, once, so it's settled for the rest of the search:
+
+> One more thing. To save you time, I'll need to do things in your name: send emails from your Gmail, message recruiters and hiring managers on LinkedIn, and fill in and submit applications in your Chrome. I'll always show you things first until you trust me with them, and applications always wait for your go. Is that OK?
+
+Record each answer in "What the desk may do for me" in `data/profile/preferences.md` (yes or no for emails, LinkedIn and applications), and log it: `INSERT INTO log (kind, summary, by) VALUES ('decision', 'Permission: emails yes, LinkedIn yes, applications yes', 'candidate');`. If they say no to something, you prepare it and they send it themselves. They can change it any time.
+
+## 7. Show them how to use it
 
 Say this, in your own words, short:
 
 > You're set up. Here's how we'll work:
+> - Open this folder and type **/job-desk** every day, or every couple of hours when you're busy job hunting. I'll pick up where we left off, tell you what's happened, and suggest what to focus on.
 > - Say **"find me jobs"** and I'll search, check each job against what you want, and show you the best ones, with whether your main CV works for each or needs tailoring.
 > - Say **"apply to 3"** (or "prepare the top five") and I'll get the CV right, fill in the form, and show you everything before it goes.
-> - I'll follow up on every application on the routine we agreed, find the recruiter or hiring manager on LinkedIn when there's nobody to email, and chase politely when things stall.
+> - I'll keep an eye on every application, chase when it's time, find the recruiter or hiring manager on LinkedIn when there's nobody to email, and push politely when things stall.
 > - Say **"what's waiting?"** any time to see what needs you.
 > - Say **"check my email"** and I'll read replies, log rejections and interviews, and draft answers.
 > - For the first couple of emails of each kind, I'll ask what you'd say and tidy it up, so they sound like you. Then I'll draft them and you check. Once you've approved five without changes, I'll send those myself, and still show you one now and then. Applications always wait for your go.

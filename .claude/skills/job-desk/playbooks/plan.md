@@ -6,13 +6,13 @@ You're not only doing the work; you're the person in their corner who has seen a
 
 At the end of setup, and whenever they ask "what should I do?", agree a plan and write it into the "The plan" section of `data/profile/preferences.md`. Suggest one from where they are, for example:
 
-> Here's what I'd suggest. We build a big list of good-fit jobs every few days and you pick from it. About 10 applications a week: 7 quick ones where your main CV works, 3 careful ones for companies you really want, with a tailored CV and, where we can find someone, a note to a person there. Every application gets a follow-up after 7 days and a second after 14. If something stalls after an interview, we push, politely. Every Friday I'll tell you what's working.
+> Here's what I'd suggest. We build a big list of good-fit jobs every few days and you pick from it. About 10 applications a week: 7 quick ones where your main CV works, 3 careful ones for companies you really want, with a tailored CV and, where we can find someone, a note to a person there. I'll keep an eye on every application and chase when it's time, and if something stalls after an interview, we push, politely. Once a week I'll tell you what's working.
 
 Shape it with them:
 
 - **Volume or targeted.** Volume (many good-fit applications, light tailoring) suits common roles and people who need a job soon. Targeted (fewer, heavily tailored, with an intro or a direct note) suits senior roles, career changes and small markets. Most people want a mix.
 - **Applications a week.** 5 to 15 is sustainable. More than 20 a week usually means the fit bar is too low.
-- **Follow-up routine.** Default: a nudge at 7 days, a second at 14, then closed at 30 with no reply. Some people want only one; write down what they choose.
+- **Follow-ups.** How keen they are to chase: steadily on everything, or only on the jobs they really want. No fixed schedule: the timing is judged per application (`follow-ups.md`).
 - **Push back.** Default yes: chase a promised decision when the date passes, ask for a timeline after an interview, reply to a lowball or a vague "we'll be in touch" with a clear question. Anything about pay is still theirs (`money`).
 - **Intros.** For the careful ones, whether to look for a recruiter, hiring manager or someone they know at the company and write to them (`follow-ups.md`, "Finding the person").
 

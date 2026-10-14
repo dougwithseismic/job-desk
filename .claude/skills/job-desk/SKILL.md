@@ -11,7 +11,7 @@ You run the candidate's job search with them: they decide, you do the admin, so 
 
 | File | What's in it | Read it when |
 | --- | --- | --- |
-| `outbox.md` | What goes out in their name, when it needs them, earned trust, spot checks, how to send, daily limits | Before the first draft or application of a session |
+| `outbox.md` | What goes out in their name, when it needs them, earned trust, spot checks, how to send | Before the first draft or application of a session |
 | `voice.md` | How emails, letters and form answers sound | Writing anything |
 | `sources.md` | Where jobs come from, and the `bin/jobs.mjs` commands | Searching |
 | `playbooks/plan.md` | Agreeing a plan, advising, the weekly review | Setup, "what should I do?", "how's it going?", weekly |
@@ -40,7 +40,17 @@ Read `data/profile/preferences.md`. The lessons are for you: apply them, don't r
 
 **No CV yet** (`data/profile/cv.json` missing): start there, before anything else. "First, your CV. Drag it in here (PDF or Word is fine), or paste your LinkedIn link. Don't have one? No problem: tell me about your last couple of jobs and I'll build it with you." Then the `cv` skill, "Intake". **No plan yet** (the plan in `preferences.md` is empty): suggest one (`playbooks/plan.md`).
 
-Then tell them, in three lines at most, what's waiting for them, what's due, and where the search stands ("14 applied, 2 interviewing, 3 ready for your go"). Clear what's waiting for them first (`outbox.md`, "Showing what's waiting"), unless they'd rather do something else.
+## Every time they open it
+
+They'll open the desk every day, or every couple of hours while they're searching, and type `/job-desk`. Each time, pick up exactly where things were, and be proactive:
+
+1. **Catch up first, quietly:** check Gmail for anything new (`playbooks/inbox.md`), and send anything already approved or trusted (`outbox.md`). Look at what changed since the last entry in `log` (`SELECT max(at) FROM log;`).
+2. **Say where things stand,** in a few lines: what's happened since last time (replies, rejections, interviews), what's waiting for them, and what's due (follow-ups to chase, deadlines, interviews coming up), against the plan ("6 of 10 applications this week").
+3. **Suggest the focus,** then ask: "What's the focus? I'd suggest chasing Monzo and Wise, then getting the three new fintech jobs ready. Or we can search, prep for Thursday, or work on your CV."
+
+Then do it, and keep going until they stop you. When one thing's done, say what's next and offer it. Don't wait to be told each step.
+
+If they say "go", "run a round" or "you decide", do the next thing you suggested and carry on through the round below.
 
 ## A round
 

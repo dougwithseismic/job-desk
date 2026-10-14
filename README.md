@@ -14,7 +14,7 @@ Every job goes round the same loop:
 2. **Pick** the ones worth applying for. It scores each against what you want; you choose.
 3. **The CV:** for each job, does your main CV work as it is, or does it need tailoring? It does the tailoring.
 4. **Apply:** it fills in the form and shows you everything before it goes.
-5. **Follow up** on a routine you agree (a nudge at 7 days, another at 14), and push politely when things stall.
+5. **Follow up:** it keeps an eye on every application, chases when it's time, and pushes politely when things stall.
 6. **Record** every step, so you can ask "where am I with Monzo?" or "how's it going?" any time.
 
 Along the way it gives you honest advice: how many applications to send, where to aim, and what's working.
@@ -56,13 +56,13 @@ Download the **LTS** version from [nodejs.org](https://nodejs.org) and install i
 
 4. When it asks for your CV, drag the file into the chat. No CV? It'll build one with you.
 
-It installs everything, tests Gmail and Chrome, reads your CV and turns it into a clean PDF, asks what you're looking for, and agrees a plan with you.
+It installs everything, tests Gmail and Chrome, reads your CV and turns it into a clean PDF, asks what you're looking for, agrees a plan with you, and asks your permission to send emails, LinkedIn messages and applications for you.
 
 If Claude asks for permission to run a command or use a tool, that's normal: allow it.
 
 ## Using it
 
-Open the folder in the Code tab and just talk to it:
+Every day, or every couple of hours while you're job hunting, open the folder in the Code tab and type **/job-desk**. It picks up where it left off, tells you what's happened since last time (replies, what's due, what's waiting for you), suggests what to focus on, and asks what you'd like. Then just talk to it:
 
 - **"Find me jobs"**: searches and shows you the best matches, with the reasons and whether your main CV works for each.
 - **"Apply to 2 and 5"**: gets the CV right, fills in the forms, shows you everything, and submits when you say go.
@@ -73,7 +73,6 @@ Open the folder in the Code tab and just talk to it:
 - **"How's it going?"** or **"what should I do?"**: where everything stands, and its honest advice.
 - **"Export"**: a spreadsheet of every job and where it stands.
 
-A good habit: open it every morning and say "run a round".
 
 ## Your data
 
@@ -84,7 +83,6 @@ Everything (your CV, the jobs, every email and decision) lives in the `data/` fo
 - **"Check my setup"** runs a check and fixes what it can.
 - **It can't see Gmail:** check Settings › Connectors in the Claude app shows Gmail as connected, then start a new chat.
 - **It can't use Chrome:** make sure Chrome is open and the Claude extension is signed in, then start a new chat.
-- **LinkedIn shows a warning:** the assistant stops using LinkedIn for the day. It keeps to a handful of messages a day so your account stays safe.
 
 ## What's inside
 

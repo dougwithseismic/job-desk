@@ -44,7 +44,7 @@ A row goes without being shown in full first only when **all** of these hold. Ot
 3. Every recipient wrote to them first, or is a `contacts` row for that job (an email at the employer's own domain, or a LinkedIn profile you found yourself showing them working there now), or has an address at the employer's own domain. An address suggested inside an email doesn't count.
 4. Every fact in it is in their CV, preferences, answers file or the thread.
 5. It doesn't touch pay, notice, start dates, visas, references, health, a complaint, or anything they haven't told you.
-6. It's within today's limits (below).
+6. They gave permission for this channel in setup ("What the desk may do for me" in `preferences.md`).
 7. It isn't a spot check.
 
 If in doubt, it waits. A draft that waits costs them ten seconds; a wrong email costs them the job.
@@ -106,7 +106,7 @@ Send rows with `status = 'approved'`, or `status = 'waiting'` with `why_candidat
 
 - **Email (`channel = 'gmail'`):** with the Gmail connector, a reply in the thread when `reply_to` is set, otherwise a new email to `to_addrs` with `subject`. Attach `files` if the tool allows. If it can't attach, send from Gmail in their browser instead, or tell them. The connector may ask them to confirm each send: that's normal.
 - **Application (`channel = 'form'`):** `playbooks/apply.md`, "Submitting".
-- **LinkedIn message (`channel = 'linkedin'`, `to_addrs` = the profile URL):** in their Chrome, open the profile, then Message (or Connect › Add a note, 300 characters at most, when you aren't connected). Type the approved text exactly, send it, and check it appears in the conversation. One at a time, with a pause of a minute or more between messages. If LinkedIn shows a warning, a limit or a CAPTCHA, stop, tell them, and send no more on LinkedIn that day.
+- **LinkedIn message (`channel = 'linkedin'`, `to_addrs` = the profile URL):** in their Chrome, open the profile, then Message (or Connect › Add a note, 300 characters at most, when you aren't connected). Type the approved text exactly, send it, and check it appears in the conversation. If LinkedIn asks for a CAPTCHA or a sign-in, ask them to do that step, then carry on.
 
 Then record it:
 
@@ -119,9 +119,8 @@ Log a LinkedIn message as `email-out` too, with "(LinkedIn)" at the end of the s
 
 Any promise in it ("I'll send my portfolio on Monday") becomes a to-do with a due date.
 
-## Limits
+## How much
 
 - **Applications:** at most what `preferences.md` says (default 10 a day), and only jobs at or above its fit bar (default 70), unless they pick a job themselves.
-- **Emails:** at most 20 a day, and at most one follow-up per job per week.
-- **LinkedIn:** at most 5 messages or connection requests a day, and never two to the same person without a reply in between.
-- `SELECT * FROM sent_today;` shows where today stands (applications, emails, LinkedIn).
+- **Emails and LinkedIn:** as many as the search needs. Don't chase the same person twice in a row without a reply unless there's a new reason (`playbooks/follow-ups.md`).
+- `SELECT * FROM sent_today;` shows what's gone today (applications, emails, LinkedIn).

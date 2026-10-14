@@ -29,9 +29,15 @@ The desk reads this before every search and every application. Change it any tim
 (agreed with the agent; see what it suggests)
 - Applications a week: 
 - Mix: (e.g. 7 quick with my main CV, 3 tailored for companies I really want)
-- Follow-ups: (e.g. a nudge at 7 days, a second at 14, closed at 30)
+- Follow-ups: (how keen: chase steadily, or only the ones I really want)
 - Push back when things stall: yes
 - Look for a person to write to at companies I really want: yes
+
+## What the desk may do for me
+(asked during setup)
+- Send emails in my name: 
+- Message people on LinkedIn: 
+- Fill in and submit applications (always after my go): 
 
 ## How the desk works for me
 - Applications a day, at most: 10
